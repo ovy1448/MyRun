@@ -6,19 +6,33 @@ $("#add").click(function () {
         '</form>'
     );
     $("#addForm").submit(function (e) {
-        e.preventDefault();
+
         var distance = $("#distance").val();
         var time = $("#time").val();
 
-        var data = {
+        var bookmark = {
             distance: distance,
             time: time
         };
-        console.log(data);
+
+        if (localStorage.getItem("bookmarks") === null) {
+            var bookmarks = [];
+            bookmarks.push(bookmark);
+            localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+        } else {
+            var bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
+            bookmarks.push(bookmark);
+            localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+        }
+        e.preventDefault();
+        console.log(bookmark);
     });
+
 });
 $("#home").click(function () {
     $("#addForm").hide();
 
 });
+
+
 
