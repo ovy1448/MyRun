@@ -22,7 +22,7 @@ $("#add").click(function () {
             var bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
             bookmarks.push(bookmark);
             localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-        }
+        };
         e.preventDefault();
         console.log(bookmarks);
         fetchBookmarks();
@@ -30,6 +30,17 @@ $("#add").click(function () {
     });
     $(".bookmarks").hide();
 });
+
+function deleteBookmark(time) {
+    var bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
+    for (var i = 0; i < bookmarks.length; i++) {
+        if (bookmarks[i].time == time) {
+            bookmarks.splice(i, 1);
+        };
+    };
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+    fetchBookmarks();
+};
 
 function fetchBookmarks() {
     var bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
@@ -43,9 +54,9 @@ function fetchBookmarks() {
             '<h1>' + time + '</h1>' +
             '</div>') */
 
-        results.innerHTML += '<div id="' + i + '" class="bookmarks">' + '<h1>' + distance + 
+        results.innerHTML += '<div id="' + i + '" class="bookmarks">' + '<h1>' + distance +
             '<h1>' + time + '</h1>' +
-            '</h1><input type="button" value="Edit"><input type="button" value="Delete">' +
+            '</h1><input type="button" value="Edit"><input onclick="deleteBookmark(\'' + time + '\')" id="deleteBookmarks" type="button" value="Delete">' +
             '</div>'
 
     };
@@ -55,7 +66,8 @@ function fetchBookmarks() {
 $("#home").click(function () {
     $("#addForm").hide();
     $(".bookmarks").hide();
-    fetchBookmarks();
 });
 
-
+$("#allRuns").click(function () {
+    fetchBookmarks();
+});
