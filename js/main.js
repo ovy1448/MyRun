@@ -45,9 +45,8 @@ function fetchBookmarks() {
 
         results.innerHTML += '<div class="bookmarks">' + '<h1>' + distance +
             '<h1>' + time + '</h1>' +
-            '</h1><input id="edit" onclick="editBookmarks(\'' + time + '\')" type="button" value="Edit"><input onclick="deleteBookmark(\'' + time + '\')" id="deleteBookmarks" type="button" value="Delete">' +
+            '</h1><input id="edit" type="button" value="Edit"><input onclick="deleteBookmark(\'' + time + '\')" id="deleteBookmarks" type="button" value="Delete">' +
             '</div>'
-
     };
 };
 
@@ -62,35 +61,38 @@ function deleteBookmark(time) {
     fetchBookmarks();
 };
 
-
-
-//!!!!
-function editBookmarks(time) {
-    $("#container").html('<form id="addForm">' +
-        'Distance: <input id="distance" type="text"><br>' +
-        'Time: <input id="time" type="text"><br>' +
-        '<input type="submit" value="Submit">' +
-        '</form>');
-
-    var bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
-    for (var i = 0; i < bookmarks.length; i++) {
-        if (bookmarks[i].time == time) {
-            var distance = bookmarks[i].distance;
-            var time = bookmarks[i].time;
-            console.log(distance);
-
-        };
-    };
-
-};
-//!!!!
-
 $("#home").click(function () {
     $("#addForm").hide();
     $(".bookmarks").hide();
+    $("#editForm").hide();
 });
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 $("#allRuns").click(function () {
     fetchBookmarks();
-    $("#addForm").hide();
+    
+    $("#edit").click(function () {
+        $("#container").html('<form id="allForm">' +
+            'Distance: <input id="allDistance" type="text"><br>' +
+            'Time: <input id="allTime" type="text"><br>' +
+            '<input type="submit" value="Edit">' +
+            '</form>'
+        );
+    });
+
+    $("#allForm").submit(function (e) {
+        /* var bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
+        for (var i = 0; i < bookmarks.length; i++) {
+            if (bookmarks[i].time == time) {
+                console.log(bookmarks[i])
+            };
+        }; */
+        console.log("H")
+        e.preventDefault();
+    });
 });
+
+
+
+
