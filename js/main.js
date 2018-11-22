@@ -39,10 +39,6 @@ function fetchBookmarks() {
         var distance = bookmarks[i].distance;
         var time = bookmarks[i].time;
 
-        /* $("#results").html('<div><br><h1>' + distance + '</h1><br>' +
-            '<h1>' + time + '</h1>' +
-            '</div>') */
-
         results.innerHTML += '<div class="bookmarks">' + '<h1>' + distance +
             '<h1>' + time + '</h1>' +
             '</h1><input id="edit" type="button" value="Edit"><input onclick="deleteBookmark(\'' + time + '\')" id="deleteBookmarks" type="button" value="Delete">' +
@@ -65,11 +61,11 @@ $("#home").click(function () {
     $("#addForm").hide();
     $(".bookmarks").hide();
     $("#editForm").hide();
+    $("#allForm").hide()
 });
 
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 $("#allRuns").click(function () {
+    $("#addForm").hide();
     fetchBookmarks();
     
     $("#edit").click(function () {
@@ -81,16 +77,17 @@ $("#allRuns").click(function () {
         );
     });
 
-    $("#allForm").submit(function (e) {
-        /* var bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
+    /* $("#container").on("submit", "#allForm" ,function (e) {
+        var bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
         for (var i = 0; i < bookmarks.length; i++) {
             if (bookmarks[i].time == time) {
-                console.log(bookmarks[i])
+                console.log("E")
             };
-        }; */
+            console.log("Q");
+        };
         console.log("H")
         e.preventDefault();
-    });
+    }); */
 });
 
 
