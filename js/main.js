@@ -1,6 +1,6 @@
 $("#home").click(function () {
     location.reload();
-    /* $("#search").show();
+    /* $("#search").show(); NOT WORKING
     $("#addForm").hide();
     $(".bookmarks").hide();
     $("#allForm").hide(); */
@@ -11,13 +11,14 @@ $("#search").keyup(function () {
     var bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
     results.innerHTML = "";
     for (var i = 0; i < bookmarks.length; i++) {
+        var date = bookmarks[i].date;
         var distance = bookmarks[i].distance;
         var time = bookmarks[i].time;
-        if (searchText == distance || searchText == time) {
-            results.innerHTML += '<div class="bookmarks">' + '<h1>' + distance +
-            '<h1>' + time + '</h1>' +
-            '</h1><input id="edit" type="button" value="Edit"><input onclick="deleteBookmark(\'' + time + '\')" id="deleteBookmarks" type="button" value="Delete">' +
-            '</div>'
+        if (searchText == distance || searchText == time || searchText == date) {
+            results.innerHTML += '<div class="bookmarks">' + '<h1>' + date + '</h1>' + '<h1>' + distance +
+                '<h1>' + time + '</h1>' +
+                '</h1><input id="edit" type="button" value="Edit"><input onclick="deleteBookmark(\'' + time + '\')" id="deleteBookmarks" type="button" value="Delete">' +
+                '</div>'
         };
     };
 });
@@ -27,7 +28,7 @@ $("#allRuns").click(function () {
     $("#search").hide();
     fetchBookmarks();
 
-    $("#edit").click(function () {
+    /* $("#edit").click(function () {
         $("#container").html('<form id="allForm">' +
             'Distance: <input id="allDistance" type="text"><br>' +
             'Time: <input id="allTime" type="text"><br>' +
@@ -36,7 +37,7 @@ $("#allRuns").click(function () {
         );
     });
 
-    /* $("#container").on("submit", "#allForm" ,function (e) {
+    $("#container").on("submit", "#allForm" ,function (e) {
         var bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
         for (var i = 0; i < bookmarks.length; i++) {
             if (bookmarks[i].time == time) {
@@ -51,6 +52,7 @@ $("#allRuns").click(function () {
 
 $("#add").click(function () {
     $("#container").html('<form id="addForm">' +
+        'Date: <input id="date" type="text"><br>' +
         'Distance: <input id="distance" type="text"><br>' +
         'Time: <input id="time" type="text"><br>' +
         '<input type="submit" value="Submit">' +
@@ -58,10 +60,12 @@ $("#add").click(function () {
     );
 
     $("#addForm").submit(function (e) {
+        var date = $("#date").val();
         var distance = $("#distance").val();
         var time = $("#time").val();
 
         var bookmark = {
+            date: date,
             distance: distance,
             time: time
         };
@@ -88,14 +92,26 @@ function fetchBookmarks() {
     var results = document.getElementById("results");
     results.innerHTML = "";
     for (var i = 0; i < bookmarks.length; i++) {
+        var date = bookmarks[i].date;
         var distance = bookmarks[i].distance;
         var time = bookmarks[i].time;
 
-        results.innerHTML += '<div class="bookmarks">' + '<h1>' + distance +
+        results.innerHTML += '<div class="bookmarks">' + '<h1>' + date + '</h1>' + '<h1>' + distance +
             '<h1>' + time + '</h1>' +
-            '</h1><input id="edit" type="button" value="Edit"><input onclick="deleteBookmark(\'' + time + '\')" id="deleteBookmarks" type="button" value="Delete">' +
+            '</h1><input id="edit" type="button" value="Edit"><input onclick="deleteBookmarks(\'' + time + '\')" id="deleteBookmarks" type="button" value="Delete">' +
             '</div>'
     };
+};
+
+function deleteBookmarks(time) {
+    var bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
+    for (var i = 0; i < bookmarks.length; i++) {
+        if (bookmarks[i].time == time) {
+            bookmarks.splice(i, 1);
+        };
+    };
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+    fetchBookmarks();
 };
 
 function deleteBookmark(time) {
@@ -106,5 +122,6 @@ function deleteBookmark(time) {
         };
     };
     localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-    fetchBookmarks();
+    $(".bookmarks").hide();
+    $("#search").val('')
 };
