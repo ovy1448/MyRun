@@ -21,11 +21,24 @@ $("#search").keyup(function () {
                 '</div>'
         };
     };
+    
+    if ($(".bookmarks").length) {
+        console.log("H");
+    } else {
+        results.innerHTML = '<div id="noMatch"> No match! </div>';
+    };
+
+    $("#search").focusout(function(){
+        if (!$(".bookmarks").length) {
+            $("#noMatch").hide();
+        };
+    });
 });
 
 $("#allRuns").click(function () {
     $("#addForm").hide();
     $("#search").hide();
+    $("#complete").hide();
     fetchBookmarks();
 
     /* $("#edit").click(function () {
@@ -52,7 +65,7 @@ $("#allRuns").click(function () {
 
 $("#add").click(function () {
     $("#container").html('<form id="addForm">' +
-        'Date: <input id="date" type="text"><br>' +
+        'Date: <input id="date" type="date"><br>' +
         'Distance: <input id="distance" type="text"><br>' +
         'Time: <input id="time" type="text"><br>' +
         '<input type="submit" value="Submit">' +
@@ -85,6 +98,7 @@ $("#add").click(function () {
     });
     $(".bookmarks").hide();
     $("#search").hide();
+    $("#complete").hide();
 });
 
 function fetchBookmarks() {
@@ -124,4 +138,17 @@ function deleteBookmark(time) {
     localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
     $(".bookmarks").hide();
     $("#search").val('')
+};
+
+function complete() {
+    var bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
+    var complete = document.getElementById("complete");
+    complete.innerHTML = "";
+    var completeDistance = 0;
+    var completeTime = 0;
+    for (var i = 0; i < bookmarks.length; i++) {
+        completeDistance += parseFloat(bookmarks[i].distance);
+        completeTime += parseFloat(bookmarks[i].time);
+    };
+    complete.innerHTML = '<h1>' + completeDistance + '</h1>' + '<h1>' + completeTime + '</h1>';
 };
