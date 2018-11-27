@@ -5,37 +5,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <title>MyRun</title>
 </head>
 
 <body onload="complete()" class="bg-light">
     <header>
-        <h1 class="p-3 font-weight-bold mb-0 bg-success text-dark text-center">MyRun</h1>
+        <h1 class="p-2 font-weight-bold mb-0 bg-success text-dark text-center">MyRun</h1>
 
-        <div class="input-group">
-            <input type="button" class="btn btn-dark input-sm rounded-0 border border-0 btn-lg" id="home" value="Home">
-            <input type="button" class="btn btn-dark input-sm rounded-0 border border-0 btn-lg" id="allRuns" value="All my Runs">
-            <input type="button" class="btn btn-dark input-sm rounded-0 border border-0 btn-lg" id="add" value="Add Run">
+        <div class="w-100 btn-group btn-group-lg btn-group-justified" role="group" aria-label="Basic example">
+            <input type="button" class="w-100 btn btn-dark input-sm rounded-0 border border-0" id="home" value="Home">
+            <input type="button" class="w-100 btn btn-dark input-sm rounded-0 border border-0" id="allRuns" value="All my Runs">
+            <input type="button" class="w-100 btn btn-dark input-sm rounded-0 border border-0" id="add" value="Add Run">
         </div>
     </header>
     <br>
     <div class="container">
-        <input class="form-control" id="search" type="text" placeholder="Search...">
+        <input class="form-control form-control-lg" id="search" type="text" placeholder="Search...">
     </div>
     <div id="results">
 
     </div>
-    <footer class="fixed-bottom" id="complete">
-
+    <footer class="fixed-bottom p-1 font-weight-bold mb-0 bg-success text-dark text-center" id="complete">
+        <div class="container">
+            <div class="row">
+                <div class="col" id="col1">
+                    How far?
+                </div>
+                <div class="col" id="col2">
+                    How fast?
+                </div>
+            </div>
+        </div>
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
 </body>
 

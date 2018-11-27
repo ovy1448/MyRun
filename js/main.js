@@ -21,14 +21,14 @@ $("#search").keyup(function () {
                 '</div>'
         };
     };
-    
+
     if ($(".bookmarks").length) {
         console.log("H");
     } else {
-        results.innerHTML = '<div id="noMatch"> No match! </div>';
+        results.innerHTML = '<br><div class="text-center" id="noMatch"><h4> No match! </h4></div>';
     };
 
-    $("#search").focusout(function(){
+    $("#search").focusout(function () {
         if (!$(".bookmarks").length) {
             $("#noMatch").hide();
         };
@@ -66,10 +66,10 @@ $("#allRuns").click(function () {
 
 $("#add").click(function () {
     $(".container").html('<form id="addForm">' +
-        '<h6>Date: </h1> <input id="date" type="date"><br>' +
-        'Distance: <input id="distance" type="text"><br>' +
-        'Time: <input id="time" type="text"><br>' +
-        '<input type="submit" value="Submit">' +
+        'Date: <input class="form-control form-control-lg" id="date" type="date"><br>' +
+        'Distance: <input class="form-control form-control-lg" id="distance" type="text"><br>' +
+        'Time: <input class="form-control form-control-lg" id="time" type="text"><br>' +
+        '<input class="btn btn-success btn-lg" type="submit" value="Submit">' +
         '</form>'
     );
 
@@ -113,7 +113,7 @@ function fetchBookmarks() {
 
         results.innerHTML += '<div class="bookmarks">' + '<h1>Date: ' + date + '</h1>' + '<h1>Distance: ' + distance +
             '<h1>Time: ' + time + '</h1>' +
-            '</h1><input class="btn-lg btn btn-success" id="edit" type="button" value="Edit"><input onclick="deleteBookmarks(\'' + time + '\')" class="btn btn-lg btn-danger" id="deleteBookmarks" type="button" value="Delete">' +
+            '</h1><input class="btn-lg btn btn-info" id="edit" type="button" value="Edit"><input onclick="deleteBookmarks(\'' + time + '\')" class="btn btn-lg btn-danger" id="deleteBookmarks" type="button" value="Delete">' +
             '</div>'
     };
 };
@@ -143,18 +143,14 @@ function deleteBookmark(time) {
 
 function complete() {
     var bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
-    var complete = document.getElementById("complete");
-    complete.innerHTML = "";
+    //var complete = document.getElementById("complete");
+    //complete.innerHTML = "";
     var completeDistance = 0;
     var completeTime = 0;
     for (var i = 0; i < bookmarks.length; i++) {
         completeDistance += parseFloat(bookmarks[i].distance);
         completeTime += parseFloat(bookmarks[i].time);
     };
-    complete.innerHTML = '<h1>' + completeDistance + '</h1>' + '<h1>' + completeTime + '</h1>';
+    col1.innerHTML += '<h3>' + completeDistance + ' Km</h3>';
+    col2.innerHTML += '<h3>' + completeTime + ' H</h3>';
 };
-
-/* $(".btn").click(function(){
-    $(".btn").removeClass("btn-light")
-    $(this).addClass("btn-light")
-}); */
