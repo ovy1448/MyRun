@@ -1,34 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <title>MyRun</title>
 </head>
 
-<body onload="complete()">
+<body onload="complete()" class="bg-light">
     <header>
+        <h1 class="p-3 font-weight-bold mb-0 bg-success text-dark text-center">MyRun</h1>
 
+        <div class="input-group">
+            <input type="button" class="btn btn-dark input-sm rounded-0 border border-0 btn-lg" id="home" value="Home">
+            <input type="button" class="btn btn-dark input-sm rounded-0 border border-0 btn-lg" id="allRuns" value="All my Runs">
+            <input type="button" class="btn btn-dark input-sm rounded-0 border border-0 btn-lg" id="add" value="Add Run">
+        </div>
     </header>
-    <input type="button" id="home" value="Home">
-    <input type="button" id="allRuns" value="All my Runs">
-    <input type="button" id="add" value="Add Run">
-    <div id="container">
-        <input id="search" type="text" placeholder="Search...">
+    <br>
+    <div class="container">
+        <input class="form-control" id="search" type="text" placeholder="Search...">
     </div>
     <div id="results">
 
     </div>
-    <div id="complete" >
+    <footer class="fixed-bottom" id="complete">
 
-    </div>
+    </footer>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-<script src="js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

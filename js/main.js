@@ -1,6 +1,6 @@
 $("#home").click(function () {
     location.reload();
-    /* $("#search").show(); NOT WORKING
+    /* $("#search").show();
     $("#addForm").hide();
     $(".bookmarks").hide();
     $("#allForm").hide(); */
@@ -15,9 +15,9 @@ $("#search").keyup(function () {
         var distance = bookmarks[i].distance;
         var time = bookmarks[i].time;
         if (searchText == distance || searchText == time || searchText == date) {
-            results.innerHTML += '<div class="bookmarks">' + '<h1>' + date + '</h1>' + '<h1>' + distance +
-                '<h1>' + time + '</h1>' +
-                '</h1><input id="edit" type="button" value="Edit"><input onclick="deleteBookmark(\'' + time + '\')" id="deleteBookmarks" type="button" value="Delete">' +
+            results.innerHTML += '<div class="bookmarks">' + '<h1>Date: ' + date + '</h1>' + '<h1>Distance: ' + distance +
+                '<h1>Time: ' + time + '</h1>' +
+                '</h1><input class="btn btn-lg btn-success" id="edit" type="button" value="Edit"><input onclick="deleteBookmark(\'' + time + '\')" class="btn btn-lg btn-danger" id="deleteBookmarks" type="button" value="Delete">' +
                 '</div>'
         };
     };
@@ -39,6 +39,7 @@ $("#allRuns").click(function () {
     $("#addForm").hide();
     $("#search").hide();
     $("#complete").hide();
+    $("p").hide();
     fetchBookmarks();
 
     /* $("#edit").click(function () {
@@ -64,8 +65,8 @@ $("#allRuns").click(function () {
 });
 
 $("#add").click(function () {
-    $("#container").html('<form id="addForm">' +
-        'Date: <input id="date" type="date"><br>' +
+    $(".container").html('<form id="addForm">' +
+        '<h6>Date: </h1> <input id="date" type="date"><br>' +
         'Distance: <input id="distance" type="text"><br>' +
         'Time: <input id="time" type="text"><br>' +
         '<input type="submit" value="Submit">' +
@@ -110,9 +111,9 @@ function fetchBookmarks() {
         var distance = bookmarks[i].distance;
         var time = bookmarks[i].time;
 
-        results.innerHTML += '<div class="bookmarks">' + '<h1>' + date + '</h1>' + '<h1>' + distance +
-            '<h1>' + time + '</h1>' +
-            '</h1><input id="edit" type="button" value="Edit"><input onclick="deleteBookmarks(\'' + time + '\')" id="deleteBookmarks" type="button" value="Delete">' +
+        results.innerHTML += '<div class="bookmarks">' + '<h1>Date: ' + date + '</h1>' + '<h1>Distance: ' + distance +
+            '<h1>Time: ' + time + '</h1>' +
+            '</h1><input class="btn-lg btn btn-success" id="edit" type="button" value="Edit"><input onclick="deleteBookmarks(\'' + time + '\')" class="btn btn-lg btn-danger" id="deleteBookmarks" type="button" value="Delete">' +
             '</div>'
     };
 };
@@ -152,3 +153,8 @@ function complete() {
     };
     complete.innerHTML = '<h1>' + completeDistance + '</h1>' + '<h1>' + completeTime + '</h1>';
 };
+
+/* $(".btn").click(function(){
+    $(".btn").removeClass("btn-light")
+    $(this).addClass("btn-light")
+}); */
