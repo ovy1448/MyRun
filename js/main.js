@@ -15,15 +15,17 @@ $("#search").keyup(function () {
         var distance = bookmarks[i].distance;
         var time = bookmarks[i].time;
         if (searchText == distance || searchText == time || searchText == date) {
-            results.innerHTML += '<div class="bookmarks">' + '<h1>Date: ' + date + '</h1>' + '<h1>Distance: ' + distance +
-                '<h1>Time: ' + time + '</h1>' +
-                '</h1><input class="btn btn-lg btn-success" id="edit" type="button" value="Edit"><input onclick="deleteBookmark(\'' + time + '\')" class="btn btn-lg btn-danger" id="deleteBookmarks" type="button" value="Delete">' +
-                '</div>'
-        };
+            results.innerHTML += '<div class="bookmarks shadow p-3 m-2 bg-white rounded">' + '<h3>Date: ' + date + '</h3>' + '<h3>Distance: ' + distance +
+                '<h3>Time: ' + time + '</h1>' +
+                '</h3><input class="btn btn-outline-primary mr-1 btn-lg" id="edit" type="button" value="Edit"><input onclick="deleteBookmark(\'' + time + '\')" class="btn btn-outline-danger btn-lg" id="deleteBookmarks" type="button" value="Delete">' +
+                '</div>';
+        } else {
+            return false;
+        }
     };
 
     if ($(".bookmarks").length) {
-        console.log("H");
+        return false;
     } else {
         results.innerHTML = '<br><div class="text-center" id="noMatch"><h4> No match! </h4></div>';
     };
@@ -41,6 +43,12 @@ $("#allRuns").click(function () {
     $("#complete").hide();
     $("p").hide();
     fetchBookmarks();
+
+    if ($(".bookmarks").length) {
+        return false;
+    } else {
+        results.innerHTML = '<br><div class="text-center"><h4> No previous runs! </h4></div>';
+    }
 
     /* $("#edit").click(function () {
         $("#container").html('<form id="allForm">' +
@@ -66,9 +74,9 @@ $("#allRuns").click(function () {
 
 $("#add").click(function () {
     $(".container").html('<form id="addForm">' +
-        'Date: <input class="form-control form-control-lg" id="date" type="date"><br>' +
-        'Distance: <input class="form-control form-control-lg" id="distance" type="text"><br>' +
-        'Time: <input class="form-control form-control-lg" id="time" type="text"><br>' +
+        '<h4>Date: </h4><input class="form-control form-control-lg" id="date" type="date"><br>' +
+        '<h4>Distance: </h4><input class="form-control form-control-lg" id="distance" type="text"><br>' +
+        '<h4>Time: </h4><input class="form-control form-control-lg" id="time" type="text"><br>' +
         '<input class="btn btn-success btn-lg" type="submit" value="Submit">' +
         '</form>'
     );
@@ -111,10 +119,21 @@ function fetchBookmarks() {
         var distance = bookmarks[i].distance;
         var time = bookmarks[i].time;
 
-        results.innerHTML += '<div class="bookmarks">' + '<h1>Date: ' + date + '</h1>' + '<h1>Distance: ' + distance +
-            '<h1>Time: ' + time + '</h1>' +
-            '</h1><input class="btn-lg btn btn-info" id="edit" type="button" value="Edit"><input onclick="deleteBookmarks(\'' + time + '\')" class="btn btn-lg btn-danger" id="deleteBookmarks" type="button" value="Delete">' +
-            '</div>'
+        results.innerHTML += '<div class="bookmarks container shadow p-3 m-2 bg-white rounded">'+
+            '<div class="row">'+
+                '<div class="col">'+
+                    '<h3>Date: </h3>'+
+                    '<h3>Distance: </h3>'+
+                    '<h3>Time: </h3>'+
+                    '</h3><input class="btn btn-outline-primary mr-1 btn-lg" id="edit" type="button" value="Edit"><input onclick="deleteBookmarks(\'' + time + '\')" class="btn btn-outline-danger btn-lg" id="deleteBookmarks" type="button" value="Delete">' +
+                '</div>'+
+                '<div class="col">'+
+                    '<h3 class="font-weight-bold">'+date+'</h3>'+
+                    '<h3 class="font-weight-bold">'+distance+'</h3>'+
+                    '<h3 class="font-weight-bold">'+time+'</h3>'
+                '</div>'+
+            '</div>'+
+        '</div>;'
     };
 };
 
