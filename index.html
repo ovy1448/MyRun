@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/datepicker.css">
     <link rel="stylesheet" href="css/style.css">
     <title>MyRun</title>
 </head>
@@ -23,15 +24,21 @@
     <br>
     <div class="container">
         <input class="form-control form-control-lg" id="search" type="text" placeholder="Search...">
+        
     </div>
     <div id="results">
 
     </div>
-    <footer class="fixed-bottom pt-1 font-weight-bold bg-success text-dark text-center" id="complete">
+    <footer class="fixed-bottom pt-1 font-weight-bold text-dark text-center" id="complete">
         <div class="container">
+            <img src="run.png" class="fixed-bottom mx-auto mx-auto d-block" style="width: 50%;" alt="">
             <div class="row">
                 <div class="col" id="col1">
                     How far?
+                </div>
+                <div class="col" id="col">
+                </div>
+                <div class="col" id="col">
                 </div>
                 <div class="col" id="col2">
                     How fast?
@@ -42,6 +49,7 @@
 
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
     <script src="js/main.js"></script>
 </body>
 
