@@ -193,16 +193,17 @@ function editBookmarks(time) {
                 '<h4>Time: </h4><input class="form-control form-control-lg" id="time" placeholder="Select" value="' + bookmarks[i].time + '" type=""><br>' +
                 '<input class="btn btn-success btn-lg" type="submit" value="Submit">' +
                 '</form>';
-
+/* 
             $('#date').datepicker()
             $('#time').timepicker({
                 timeFormat: "H:mm",
                 hourMin: 0,
                 hourMax: 4
-            });
+            }); */
             bookmarks.splice(i, 1);
         };
     };
+
 
     $("#editForm").submit(function (e) {
         var date = $("#date").val();
@@ -229,4 +230,12 @@ function editBookmarks(time) {
     });
     $("#search").hide();
 };
+
+$('body').on('focus', "#date", function () {
+    $(this).datepicker();
+});
+
+$('body').on('focus', "#time", function () {
+    $(this).timepicker();
+});
 
