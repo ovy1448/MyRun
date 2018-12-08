@@ -13,7 +13,7 @@ $("#search").on("keyup", function () {
         var dateA = new Date(a.date);
         var dateB = new Date(b.date);
         return dateB - dateA;
-      });
+    });
     results.innerHTML = "";
 
     for (var i = 0; i < bookmarks.length; i++) {
@@ -23,20 +23,20 @@ $("#search").on("keyup", function () {
         if (searchText == distance || searchText == time || searchText == date) {
             $("#complete").hide();
             results.innerHTML += '<div class="bookmarks shadow p-3 m-2 bg-light rounded">' +
-            '<div class="row">' +
-            '<div class="col">' +
-            '<h3>Date: </h3>' +
-            '<h3>Distance: </h3>' +
-            '<h3>Time: </h3>' +
-            '</h3><input onclick="editBookmarks(\'' + time + '\')" class="btn btn-outline-primary mr-1 btn-lg" id="edit" type="button" value="Edit"><input onclick="deleteBookmarks(\'' + time + '\')" class="btn btn-outline-danger btn-lg" id="deleteBookmarks" type="button" value="Delete">' +
+                '<div class="row">' +
+                '<div class="col">' +
+                '<h3>Date: </h3>' +
+                '<h3>Distance: </h3>' +
+                '<h3>Time: </h3>' +
+                '</h3><input onclick="editBookmarks(\'' + time + '\')" class="btn btn-outline-primary mr-1 btn-lg" id="edit" type="button" value="Edit"><input onclick="deleteBookmarks(\'' + time + '\')" class="btn btn-outline-danger btn-lg" id="deleteBookmarks" type="button" value="Delete">' +
+                '</div>' +
+                '<div class="col">' +
+                '<h3 class="font-weight-bold">' + date + '</h3>' +
+                '<h3 class="font-weight-bold">' + distance + '</h3>' +
+                '<h3 class="font-weight-bold">' + time + '</h3>'
             '</div>' +
-            '<div class="col">' +
-            '<h3 class="font-weight-bold">' + date + '</h3>' +
-            '<h3 class="font-weight-bold">' + distance + '</h3>' +
-            '<h3 class="font-weight-bold">' + time + '</h3>'
-        '</div>' +
-            '</div>' +
-            '</div>';
+                '</div>' +
+                '</div>';
         };
     };
 
@@ -72,24 +72,24 @@ $("#allRuns").on("click", function () {
 
 $("#add").on("click", function () {
     $(".container").html('<form id="addForm">' +
-        '<h4>Date: </h4><input class="form-control form-control-lg" id="date" placeholder="Select" type=""><br>' +
-        '<h4>Distance: </h4><input class="form-control form-control-lg" id="distance" placeholder="In miles" type="text"><br>' +
-        '<h4>Time: </h4><input class="form-control form-control-lg" id="time" placeholder="Select" type=""><br>' +
+        '<h4>Date: </h4><input class="date form-control form-control-lg" placeholder="Select" type=""><br>' +
+        '<h4>Distance: </h4><input class="distance form-control form-control-lg" placeholder="In miles" type="text"><br>' +
+        '<h4>Time: </h4><input class="time form-control form-control-lg" placeholder="Select" type=""><br>' +
         '<input class="btn btn-success btn-lg" type="submit" value="Submit">' +
         '</form>'
     );
 
-    $('#date').datepicker()
-    $('#time').timepicker({
+    $('.date').datepicker()
+    $('.time').timepicker({
         timeFormat: "H:mm",
         hourMin: 0,
         hourMax: 4
     });
 
     $("#addForm").on("submit", function (e) {
-        var date = $("#date").val();
-        var distance = $("#distance").val();
-        var time = $("#time").val();
+        var date = $(".date").val();
+        var distance = $(".distance").val();
+        var time = $(".time").val();
 
         if (!distance.length || !date.length || !time.length) {
             alert("Something missing!")
@@ -127,7 +127,7 @@ function fetchBookmarks() {
         var dateA = new Date(a.date);
         var dateB = new Date(b.date);
         return dateB - dateA;
-      });
+    });
 
     var results = document.getElementById("results");
     results.innerHTML = "";
@@ -152,6 +152,7 @@ function fetchBookmarks() {
             '</div>' +
             '</div>';
     };
+
 };
 
 function deleteBookmarks(time) {
@@ -205,32 +206,33 @@ function complete() {
 };
 
 function editBookmarks(time) {
+    $("#addForm").remove();
     var bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
     for (var i = 0; i < bookmarks.length; i++) {
         if (bookmarks[i].time == time) {
             $(".bookmarks").hide();
             results.innerHTML += '<form class="bookmarks shadow p-3 m-2 bg-light rounded" id="editForm">' +
-                '<h4>Date: </h4><input class="form-control form-control-lg" id="date" placeholder="Select" value="' + bookmarks[i].date + '" type=""><br>' +
-                '<h4>Distance: </h4><input class="form-control form-control-lg" id="distance" placeholder="In miles" value="' + bookmarks[i].distance + '" type="text"><br>' +
-                '<h4>Time: </h4><input class="form-control form-control-lg" id="time" placeholder="Select" value="' + bookmarks[i].time + '" type=""><br>' +
+                '<h4>Date: </h4><input class="date form-control form-control-lg" placeholder="Select" value="' + bookmarks[i].date + '" type=""><br>' +
+                '<h4>Distance: </h4><input class="distance form-control form-control-lg" placeholder="In miles" value="' + bookmarks[i].distance + '" type="text"><br>' +
+                '<h4>Time: </h4><input class="time form-control form-control-lg" placeholder="Select" value="' + bookmarks[i].time + '" type=""><br>' +
                 '<input class="btn btn-success btn-lg" type="submit" value="Submit">' +
                 '</form>';
-            /* 
-                        $('#date').datepicker()
-                        $('#time').timepicker({
-                            timeFormat: "H:mm",
-                            hourMin: 0,
-                            hourMax: 4
-                        }); */
+
+            /* $('.date').datepicker()
+            $('.time').timepicker({
+                timeFormat: "H:mm",
+                hourMin: 0,
+                hourMax: 4
+            }); */
             bookmarks.splice(i, 1);
         };
     };
 
 
     $("#editForm").on("submit", function (e) {
-        var date = $("#date").val();
-        var distance = $("#distance").val();
-        var time = $("#time").val();
+        var date = $(".date").val();
+        var distance = $(".distance").val();
+        var time = $(".time").val();
 
         if (!distance.length || !date.length || !time.length) {
             alert("Something missing!")
@@ -245,22 +247,46 @@ function editBookmarks(time) {
             localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
 
             fetchBookmarks();
-            $("#editForm").hide();
+            $("#editForm").remove();
         };
         e.preventDefault();
     });
     $("#search").hide();
+    $('.date').datepicker()
+    $('.time').timepicker({
+        timeFormat: "H:mm",
+        hourMin: 0,
+        hourMax: 4
+    });
 };
 
-$('body').on('focus', "#date", function () {
+/* $('body').on('focus', ".date", function () {
     $(this).datepicker();
 });
 
-$('body').on('focus', "#time", function () {
+$('body').on('focus', ".time", function () {
     $(this).timepicker({
         timeFormat: "H:mm",
         hourMin: 0,
         hourMax: 4
     });
+}); */
+
+/* $('body').on('focus', ".date", function () {
+    $(this).datepicker({
+        onSelect: function (dateStr) {
+            $('body').('.date').val(dateStr);
+        }
+    });
 });
 
+$('body').on('focus', ".time", function () {
+    $(this).timepicker({
+        timeFormat: "H:mm",
+        hourMin: 0,
+        hourMax: 4,
+        onSelect: function (timeStr) {
+            $('body').('.time').val(timeStr);
+        }
+    });
+}); */
