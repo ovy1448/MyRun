@@ -28,7 +28,7 @@ $("#search").on("keyup", function () {
                 '<h3>Date: </h3>' +
                 '<h3>Distance: </h3>' +
                 '<h3>Time: </h3>' +
-                '</h3><input onclick="editBookmarks(\'' + time + '\')" class="btn btn-outline-primary mr-1 btn-lg" id="edit" type="button" value="Edit"><input onclick="deleteBookmarks(\'' + time + '\')" class="btn btn-outline-danger btn-lg" id="deleteBookmarks" type="button" value="Delete">' +
+                '</h3><input onclick="editBookmarks(\'' + time + '\')" class="btn btn-outline-primary mr-1 btn-lg" id="edit" type="button" value="Edit"><input onclick="deleteBookmark(\'' + time + '\')" class="btn btn-outline-danger btn-lg" id="deleteBookmarks" type="button" value="Delete">' +
                 '</div>' +
                 '<div class="col">' +
                 '<h3 class="font-weight-bold">' + date + '</h3>' +
@@ -50,6 +50,7 @@ $("#search").on("keyup", function () {
         if (!$(".bookmarks").length) {
             $("#noMatch").hide();
             $("#complete").show();
+            $("#search").val("")
             results.innerHTML = '<br><div class="text-center" id="dots"><h4> ... </h4></div>';
         };
     });
@@ -63,11 +64,6 @@ $("#allRuns").on("click", function () {
     $("#dots").hide();
     fetchBookmarks();
 
-    if ($(".bookmarks").length) {
-        return false;
-    } else {
-        results.innerHTML = '<br><div id="noPrevious" class="text-center"><h4> No previous runs! </h4></div>';
-    }
 });
 
 $("#add").on("click", function () {
@@ -152,6 +148,11 @@ function fetchBookmarks() {
             '</div>' +
             '</div>';
     };
+    if ($(".bookmarks").length) {
+        return false;
+    } else {
+        results.innerHTML = '<br><div id="noPrevious" class="text-center"><h4> No previous runs! </h4></div>';
+    }
 
 };
 
@@ -164,6 +165,7 @@ function deleteBookmarks(time) {
     };
     localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
     fetchBookmarks();
+    $('#search').hide();
 };
 
 function deleteBookmark(time) {
@@ -177,6 +179,7 @@ function deleteBookmark(time) {
     $(".bookmarks").hide();
     $("#search").val('')
     $("#complete").show();
+    complete();
 };
 
 function complete() {
@@ -201,8 +204,8 @@ function complete() {
     var minutes = Math.floor(totalSeconds / 60);
     completeTime = (pad(hours) + ":" + pad(minutes));
 
-    col1.innerHTML += '<h3>' + completeDistance + ' </h3>';
-    col2.innerHTML += '<h3>' + completeTime + ' </h3>';
+    col1.innerHTML = 'Complete Miles<h3>' + completeDistance + ' </h3>';
+    col2.innerHTML = 'Complete Hours<h3>' + completeTime + ' </h3>';
 };
 
 function editBookmarks(time) {
