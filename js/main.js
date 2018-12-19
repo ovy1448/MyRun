@@ -1,6 +1,15 @@
-// Reload when HOME button is triggered.
+// Function that will be called on the click of the button.
 $("#home").on("click", function () {
-    location.reload();
+    // Show, hide the HTML elements.
+    $("#oneForm").hide();
+    $("#search").show();
+    $("#complete").show();
+    // Sets the HTML content of an element.
+    $("#results").html('<br><div class="text-center" id="dots"><h4> ... </h4></div>');
+    // Elements value will deleted.
+    $("#search").val("")
+    // Call function to display the complete results.
+    complete();
 });
 
 // Function will run everytime user releases a key (on the keyboard).
@@ -8,7 +17,7 @@ $("#search").on("keyup", function () {
     // Variable that stores a string, with the value of the text field.
     var searchText = $(this).val();
     // Response data (as a string) is parsed into a JavaScript object.
-    var bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
+    var bookmarks = getBookmarks();
     // Sorting function of the result by date with a parameters.
     bookmarks.sort(function compare(a, b) {
         // Variables with new dates from a strings.
@@ -51,8 +60,8 @@ $("#search").on("keyup", function () {
 
     // If the results div is empty/search has no result, block of code is executed.
     if (!$(".bookmarks").length) {
-        // Hide the unwanted HTML element.
-        $("#dots").hide();
+        // Remove the unwanted HTML element.
+        $("#dots").remove();
         // Sets the HTML content of an element.
         $("#results").html('<br><div class="text-center" id="noMatch"><h4> No match! </h4></div>');
     };
@@ -75,12 +84,13 @@ $("#search").on("keyup", function () {
 
 // Function that will be called on the click of the button.
 $("#allRuns").on("click", function () {
-    // Hide the unwanted HTML elements.
+    // Show, hide or remove the HTML elements.
     $("#addForm").hide();
     $("#search").hide();
     $("#complete").hide();
     $("p").hide();
-    $("#dots").hide();
+    $("#dots").remove();
+    $("#results").show();
     // Call function to display results.
     fetchBookmarks();
 
@@ -89,7 +99,7 @@ $("#allRuns").on("click", function () {
 // Function that will be called on the click of the button.
 $("#add").on("click", function () {
     // Sets the HTML content of an element.
-    $(".container").html('<form id="addForm">' +
+    $("#oneForm").html('<form id="addForm">' +
         '<h4>Date: </h4><input class="date form-control form-control-lg" placeholder="Select" type=""><br>' +
         '<h4>Distance: </h4><input class="distance form-control form-control-lg" placeholder="In miles" type="text"><br>' +
         '<h4>Time: </h4><input class="time form-control form-control-lg" placeholder="Select" type=""><br>' +
@@ -133,7 +143,7 @@ $("#add").on("click", function () {
                 localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
             // Else the response data (as a string) is parsed into a JavaScript object.
             } else {
-                var bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
+                var bookmarks = getBookmarks();
                 // Adds the object to an array.
                 bookmarks.push(bookmark);
                 // Update the key to the storage and its value.
@@ -147,18 +157,19 @@ $("#add").on("click", function () {
         // Prevent form from submitting. The value of the form is passed nonetheless.
         e.preventDefault();
     });
-    // Hide the unwanted HTML elements.
+    // Show, hide or remove the HTML elements.
     $(".bookmarks").hide();
     $("#search").hide();
     $("#complete").hide();
     $("#noPrevious").hide();
-    $("#dots").hide();
+    $("#dots").remove();
+    $("#oneForm").show();
 });
 
 // Main function that will be called by other function.
 function fetchBookmarks() {
     // Response data (as a string) is parsed into a JavaScript object.
-    var bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
+    var bookmarks = getBookmarks();
     // Sorting function of the result by date with a parameters.
     bookmarks.sort(function compare(a, b) {
         // Variables with new dates from a strings.
@@ -205,7 +216,7 @@ function fetchBookmarks() {
 // Inline function with given parameter that will be called whenever the delete button is triggered. 
 function deleteBookmarks(time) {
     // Response data (as a string) is parsed into a JavaScript object.
-    var bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
+    var bookmarks = getBookmarks();
     // Loops through the object.
     for (var i = 0; i < bookmarks.length; i++) {
         // If the parameter match, block of code is executed.
@@ -225,7 +236,7 @@ function deleteBookmarks(time) {
 // Inline function with given parameter that will be called whenever the delete button is triggered while search. 
 function deleteBookmark(time) {
     // Response data (as a string) is parsed into a JavaScript object.
-    var bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
+    var bookmarks = getBookmarks();
     // Loops through the object.
     for (var i = 0; i < bookmarks.length; i++) {
         // If the parameter match, block of code is executed.
@@ -249,7 +260,7 @@ function deleteBookmark(time) {
 // Function that will be called by other function.
 function complete() {
     // Response data (as a string) is parsed into a JavaScript object.
-    var bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
+    var bookmarks = getBookmarks();
     // Create new default variables complete results.
     var completeDistance = 0;
     var completeTime = 0;
@@ -294,7 +305,7 @@ function editBookmarks(time) {
     // Element will be deleted.
     $("#addForm").remove();
     // Response data (as a string) is parsed into a JavaScript object.
-    var bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
+    var bookmarks = getBookmarks();
     // Loops through the object.
     for (var i = 0; i < bookmarks.length; i++) {
         // If the parameter match, block of code is executed.
@@ -355,3 +366,15 @@ function editBookmarks(time) {
         hourMax: 4
     });
 };
+
+// Function with default value for bookmarks.
+function getBookmarks() {
+    // Response data is saved into variable.
+    var bookmarks = localStorage.getItem("bookmarks");
+    // If bookmarks doesn't exist, return empty array.
+    if (!bookmarks) {
+        return []
+    };
+    // Else return parsed JavaScript object.
+    return JSON.parse(bookmarks);
+}
