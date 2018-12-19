@@ -253,6 +253,8 @@ function deleteBookmark(time) {
     $("#search").val('')
     // Dispaly the wanted HTML element.
     $("#complete").show();
+    // Sets the HTML content of an element.
+    $("#results").html('<br><div class="text-center" id="dots"><h4> ... </h4></div>');
     // Call function to display the complete results.
     complete();
 };
